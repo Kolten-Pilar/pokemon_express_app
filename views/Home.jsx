@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const myStyle = {
   color: "#fff",
@@ -10,22 +10,21 @@ const myStyle = {
   alignItems: "center",
   justifyContent: "center",
   minHeight: "100vh",
-  fontSize: "30px",
+  fontSize: "60px"
 };
 
-function Show( {pokemon} ) {
-  const capitalName =
-          pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-  console.log(pokemon);
-  const updatedUrl = `${pokemon.img}.jpg`
-  return (
-    <div style={myStyle}>
-      <h1>Gotta Catch 'Em All</h1>
-      <h2>{capitalName}</h2>
-      <img src={updatedUrl}/> 
-      <a href={`/pokemon`} ><br/>Back</a>
-      </div>
-  )
+const aStyle = {
+  fontSize: "40px",
+
 }
 
-module.exports = Show;
+function Home() {
+  return (
+    <div style={myStyle}>
+      <h1>Welcome to the Pokemon App!</h1>
+      <a style={aStyle} href="/pokemon">Pokemon</a>
+    </div>
+  );
+}
+
+export default Home;

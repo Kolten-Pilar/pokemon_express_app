@@ -13,9 +13,7 @@ app.engine('jsx', require('express-react-views').createEngine());
 // -------------------------------------------------------------------------
 // homepage
 app.get('/', (req, res) => {
-  res.send(`<h1>Welcome to the Pokemon App!</h1>
-  <a href='/pokemon'>Pokemon</a>
-  `)
+  res.render('Home')
 })
 
 //pokemon get route
