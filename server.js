@@ -23,6 +23,11 @@ app.get('/pokemon', (req, res) => {
   })
 })
 
+//show route
+app.get('/pokemon/:id', (req, res) => {
+  res.send(`<h1>req.params.id</h1>`)
+})
+
 app.listen(port, () => {
   console.log(`listening at port ${port}`);
 })
