@@ -14,7 +14,7 @@ function Index({ pokemon }) {
         return (
           <ul key={i}>
             <li >
-              <a href={`/pokemon/${i}`}>{capitalName}</a> {pokemon.img} <br />
+              <a href={`/pokemon/${i}`}>{capitalName}</a><br />
             </li>
           </ul>
         );
@@ -23,4 +23,4 @@ function Index({ pokemon }) {
   );
 }
 
-export default Index;
+module.exports = Index;
