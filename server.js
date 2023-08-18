@@ -18,7 +18,9 @@ app.get('/', (req, res) => {
 
 //pokemon get route
 app.get('/pokemon', (req, res) => {
-  res.send(pokemon);
+  res.render('Index', {
+    pokemon: pokemon
+  })
 })
 
 app.listen(port, () => {
