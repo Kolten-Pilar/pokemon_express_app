@@ -28,6 +28,9 @@ function Index({ pokemon }) {
   return (
     <div style={myStyle}>
       <h1 style={h1Style}>See All The Pokemon</h1>
+      <nav>
+        <a href="/new">Create a New Pokemon!</a>
+      </nav> <br/>
       {pokemon.map((pokemon, i) => {
         const capitalName =
           pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); //slice starts at the second character then returns the rest of the letters
