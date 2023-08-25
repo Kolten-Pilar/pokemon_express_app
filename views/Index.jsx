@@ -37,7 +37,7 @@ function Index({ pokemon }) {
         return (
           <ul key={i}>
             <li style={listStyle}>
-              <a href={`/pokemon/${i}`}>{capitalName}</a>
+              <a href={`/pokemon/${pokemon.id}`}>{capitalName}</a>
               <br />
             </li>
           </ul>

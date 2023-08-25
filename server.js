@@ -1,8 +1,29 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-
+require('dotenv').config();
+const mongoose = require('mongoose');
 const pokemon = require('./models/pokemon.js'); //import pokemon data
+
+pokemon.once('open', () => {
+  console.log('connected to pokemon mongodb');
+});
+
+//setup mongoose connection
+const mongoURI = process.env.MONGO_URI;
+const db = mongoose.connection;
+
+//connect to mongo
+mongoose.connect(mongoURI, {
+  //get rid of error messages
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+
+//error success messages about connection
+db.on("error", (err) => console.log(err.message + " is mongodb not running?"));
+db.on("open", () => console.log("mongo connected: ", mongoURI));
+db.on("close", () => console.log("mongo disconnected"));
 
 //setting up view engine
 app.set('views', __dirname + '/views');
@@ -25,9 +46,10 @@ app.get('/', (req, res) => {
 })
 
 //pokemon get route
-app.get('/pokemon', (req, res) => {
+app.get('/pokemon', async (req, res) => {
+  const foundPokemon = await pokemon.find({})
   res.render('Index', {
-    pokemon: pokemon
+    pokemon: foundPokemon
   })
 })
 
@@ -37,26 +59,28 @@ app.get('/new', (req, res) => {
 })
 
 //Create = POST
-app.post('/pokemon', (req, res) => {
-  console.log(req.body);
-  const newPokemon = { //creates new pokemon data
-    name: req.body.name,
-    img: req.body.img,
-  }
-  // if(req.body.readyToEat === 'on'){ //if checked, req.body.readyToEat is set to 'on'
-  //   req.body.readyToEat = true; // do some data correction
-  // } else { //if not checked, req.body.readyToEat is undefined
-  //   req.body.readyToEat = false;
-  // }
-  pokemon.push(newPokemon);
+app.post('/pokemon', async (req, res) => {
+  console.log('This is the created Pokemon', req.body);
+  const newPokemon = await pokemon.create(req.body);
+  //{ 
+  //creates new pokemon data
+  //   name: req.body.name,
+  //   img: req.body.img,
+ //  }
+ // pokemon.push(newPokemon);
+  console.log(newPokemon);
   res.redirect('/pokemon');
-  res.send('data received');
+  //res.send('data received');
 })
 
 //show route
-app.get('/pokemon/:id', (req, res) => {
+app.get('/pokemon/:id', async (req, res) => {
+  // res.render('Show', {
+  //   pokemon: pokemon[req.params.id]
+  // })
+  const onePokemon = await pokemon.findById(req.params.id);
   res.render('Show', {
-    pokemon: pokemon[req.params.id]
+    pokemon: onePokemon
   })
 })
 
